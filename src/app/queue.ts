@@ -13,15 +13,65 @@ import {
 @Component({
   selector: 'queue',
   template: `
-    <div>
-      Queue
-      <button (click)="tick()">tick</button>
-      <button (click)="reset()">reset</button>
-      <div *ngIf="counter$ | async as counter">
-        {{ counter[0] }}: {{ counter[1] }}
+    <div class="queue-container">
+      <h2>Queue</h2>
+      <div class="button-group">
+        <button (click)="tick()">Tick</button>
+        <button (click)="reset()">Stop</button>
+      </div>
+      <div *ngIf="counter$ | async as counter" class="counter-display">
+        Step {{ counter[0] }}: Count {{ counter[1] }}
       </div>
     </div>
   `,
+  styles: [
+    `
+      .queue-container {
+        margin: 20px;
+        padding: 20px;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        background-color: #f2f2f2;
+        max-width: 400px;
+      }
+
+      h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: white;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      .counter-display {
+        font-size: 18px;
+        color: #555;
+        padding: 10px;
+        border-radius: 4px;
+        background-color: #e6e6e6;
+        text-align: center;
+      }
+    `,
+  ],
 })
 export class QueueComponent implements OnInit {
   public counter$!: Observable<[number, number]>;
